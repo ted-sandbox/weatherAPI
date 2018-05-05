@@ -28,12 +28,13 @@ app.get('/', function (req, res) {
 });
 
 
+//This is the app's main endpoint
 app.get('/:city', function (req, res) {
 
-    //console.log(req.params.city);
+    const userentry = req.params.city.toLowerCase().replace(/\s+/g, '');
 
     citydata.forEach(element => {
-        if(req.params.city == element.city){
+        if(userentry == element.city){
 
             console.log(req.params.city + ' was requested.');
 
@@ -52,17 +53,17 @@ app.get('/:city', function (req, res) {
 
     }); //end of foreach
 
-
-    
 });
 
 
+
+//This starts the express app listening on a specified port
 app.listen(3000, function () {
     console.log('Weather API app listening on port 3000!');
   });
 
 
-
+//Develop the model for a Place
 function Place(city,state,country,ll) {
     this.name = city;
 
@@ -106,15 +107,15 @@ function getWeather(lat,long,callback) {
 
 var citydata = 
 	[
-		 {'city': 'New York', 'state':'NY', 'country':'USA', 'll': '40.7143528,-74.00597309999999'}
-		,{'city': 'Los Angeles', 'state':'CA', 'country':'USA', 'll': '34.0522342,-118.2436849'}
-		,{'city': 'Chicago', 'state':'IL', 'country':'USA', 'll': '41.8781136,-87.6297982'}
-		,{'city': 'Houston', 'state':'TX', 'country':'USA', 'll': '29.7601927,-95.36938959999999'}
-		,{'city': 'Philadelphia', 'state':'PA', 'country':'USA', 'll': '39.952335,-75.16378900000001'}
-		,{'city': 'Phoenix', 'state':'AZ', 'country':'USA', 'll': '33.4483771,-112.0740373'}
-		,{'city': 'San Antonio', 'state':'TX', 'country':'USA', 'll': '29.4241219,-98.49362819999999'}
-		,{'city': 'San Diego', 'state':'CA', 'country': 'USA', 'll': '32.7153292,-117.1572551'}
-        ,{'city': 'Dallas', 'state':'TX', 'country':'USA', 'll': '32.802955,-96.769923'}
-        ,{'city': 'Pittsburgh', 'state':'PA', 'country':'USA', 'll': '40.4406,-79.9959'}
-        ,{'city': 'Champion', 'state':'PA', 'country':'USA', 'll':'40.0741,-79.3512'}
+		 {'city': 'newyork', 'state':'NY', 'country':'USA', 'll': '40.7143528,-74.00597309999999'}
+		,{'city': 'losangeles', 'state':'CA', 'country':'USA', 'll': '34.0522342,-118.2436849'}
+		,{'city': 'chicago', 'state':'IL', 'country':'USA', 'll': '41.8781136,-87.6297982'}
+		,{'city': 'houston', 'state':'TX', 'country':'USA', 'll': '29.7601927,-95.36938959999999'}
+		,{'city': 'philadelphia', 'state':'PA', 'country':'USA', 'll': '39.952335,-75.16378900000001'}
+		,{'city': 'phoenix', 'state':'AZ', 'country':'USA', 'll': '33.4483771,-112.0740373'}
+		,{'city': 'sanantonio', 'state':'TX', 'country':'USA', 'll': '29.4241219,-98.49362819999999'}
+		,{'city': 'sandiego', 'state':'CA', 'country': 'USA', 'll': '32.7153292,-117.1572551'}
+        ,{'city': 'dallas', 'state':'TX', 'country':'USA', 'll': '32.802955,-96.769923'}
+        ,{'city': 'pittsburgh', 'state':'PA', 'country':'USA', 'll': '40.4406,-79.9959'}
+        ,{'city': 'champion', 'state':'PA', 'country':'USA', 'll':'40.0741,-79.3512'}
 	];
