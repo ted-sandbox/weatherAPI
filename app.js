@@ -13,6 +13,7 @@ var places = [];
 var app = express()
 
 //setup the request options needed
+//User-Agent was particularly needed, since not having it caused the source NOAA data site to reject this server's request.
 const options = {  
     method: 'GET',
     headers: {
@@ -22,17 +23,19 @@ const options = {
     }
 };
 
-
+//This is the home enpoint for this express API.
 app.get('/', function (req, res) {
     res.send('Welcome to Weather API!');
 });
 
 
-//This is the app's main endpoint
+//This is the app's main endpoint (city names are passed in as the uri qualifiers)
 app.get('/:city', function (req, res) {
 
+    //clean up the userentry to have all lower case charaters AND no spaces
     const userentry = req.params.city.toLowerCase().replace(/\s+/g, '');
 
+    //loop through the city data array and 
     citydata.forEach(element => {
         if(userentry == element.city){
 
@@ -118,4 +121,8 @@ var citydata =
         ,{'city': 'dallas', 'state':'TX', 'country':'USA', 'll': '32.802955,-96.769923'}
         ,{'city': 'pittsburgh', 'state':'PA', 'country':'USA', 'll': '40.4406,-79.9959'}
         ,{'city': 'champion', 'state':'PA', 'country':'USA', 'll':'40.0741,-79.3512'}
+        ,{'city': 'saltlakecity', 'state':'UT','country':'USA', 'll':'40.7608,-111.8910'}
+        ,{'city': 'denver','state':'CO','country':'USA','ll':'39.7392,-104.9903'}
+        ,{'city': 'seattle','state':'WA','country':'USA','ll':'47.6062,-122.3321'}
+        ,{'city': 'keywest','state':'FL','country':'USA','ll':'24.5551,-81.7800'}
 	];
