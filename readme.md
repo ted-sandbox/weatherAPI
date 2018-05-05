@@ -1,8 +1,8 @@
-#A basic weather API based on current NOAA data.
+# A basic weather API based on current NOAA data.
 
-##Uses node.js & Express based construction.
+## Uses node.js & Express based construction.
 
-##To access a city's data, it's just the app's root url/cityname.
+## To access a city's data, it's just the app's root url/cityname.
 
-###Supported cities (currently) are:
-###New York, Los Angeles, Chicago, Houston, Philadelphia, Phoenix, San Antonio, San Diego, Pittsburgh, Champion
+### Supported cities (currently) are:
+New York, Los Angeles, Chicago, Houston, Philadelphia, Phoenix, San Antonio, San Diego, Pittsburgh, Champion
