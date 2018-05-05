@@ -2,11 +2,15 @@
 //ted-sandbox Weather API
 console.log('Welcome to the Weather API');
 
+// setup the inclues from npm library
+var request = require('request');
+var express = require('express');
+
 //Setup a blank array of places we will be getting weather data on
 var places = [];
 
-// setup the request include from npm library
-var request = require('request');
+//setup the express variable
+var app = express()
 
 //setup the request options needed
 const options = {  
@@ -18,17 +22,44 @@ const options = {
     }
 };
 
-//call the place function
-var someplace = new Place('Pittsburgh','PA','USA', '40.4406,-79.9959');
 
-
-var weather = getWeather(someplace.lat,someplace.long,function(result){
-    //console.log(result);
-    for(i=0;i<=2;i++){
-    someplace.periods[i] = new Period(result[i].number,result[i].name,result[i].startTime,result[i].endTime,result[i].temperature,result[i].temperatureUnit,result[i].windSpeed,result[i].windDirection,result[i].shortForecast,result[i].detailedForecast);
-    }
-    console.log(someplace);
+app.get('/', function (req, res) {
+    res.send('Welcome to Weather API!');
 });
+
+
+app.get('/:city', function (req, res) {
+
+    //console.log(req.params.city);
+
+    citydata.forEach(element => {
+        if(req.params.city == element.city){
+
+            console.log(req.params.city + ' was requested.');
+
+            //call the place function
+            var someplace = new Place(element.city,element.state,element.country,element.ll);
+
+            var weather = getWeather(someplace.lat,someplace.long,function(result){
+                for(i=0;i<=6;i++){
+                    someplace.periods[i] = new period(result[i].number,result[i].name,result[i].startTime,result[i].endTime,result[i].temperature,result[i].temperatureUnit,result[i].windSpeed,result[i].windDirection,result[i].shortForecast,result[i].detailedForecast);
+                }
+                //return the selected city forecast data
+                res.send(someplace.periods);
+            });
+            
+        }
+
+    }); //end of foreach
+
+
+    
+});
+
+
+app.listen(3000, function () {
+    console.log('Weather API app listening on port 3000!');
+  });
 
 
 
@@ -49,8 +80,8 @@ function Place(city,state,country,ll) {
     
 }
 
-//
-function Period(number,name,startTime,endTime,temperature,temperatureUnit,windSpeed,windDirection,shortForecast,detailedForecast){
+// Setup a the model for a forecast period
+function period(number,name,startTime,endTime,temperature,temperatureUnit,windSpeed,windDirection,shortForecast,detailedForecast){
     this.number = number;
     this.name = name;
     this.startTime = startTime;
@@ -73,8 +104,6 @@ function getWeather(lat,long,callback) {
 }
 
 
-
-
 var citydata = 
 	[
 		 {'city': 'New York', 'state':'NY', 'country':'USA', 'll': '40.7143528,-74.00597309999999'}
@@ -87,4 +116,5 @@ var citydata =
 		,{'city': 'San Diego', 'state':'CA', 'country': 'USA', 'll': '32.7153292,-117.1572551'}
         ,{'city': 'Dallas', 'state':'TX', 'country':'USA', 'll': '32.802955,-96.769923'}
         ,{'city': 'Pittsburgh', 'state':'PA', 'country':'USA', 'll': '40.4406,-79.9959'}
+        ,{'city': 'Champion', 'state':'PA', 'country':'USA', 'll':'40.0741,-79.3512'}
 	];
