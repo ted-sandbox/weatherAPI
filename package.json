@@ -18,6 +18,7 @@
   "homepage": "https://github.com/ted-sandbox/weatherAPI#readme",
   "dependencies": {
     "express": "^4.16.3",
-    "request": "^2.85.0"
+    "request": "^2.85.0",
+    "sort-json-array": "^0.1.7"
   }
 }
